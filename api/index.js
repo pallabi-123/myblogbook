@@ -1,0 +1,38 @@
+const express = require('express')
+const dotenv = require('dotenv')
+const connectDB = require('./config/db')
+const authRoute = require('./routes/auth')
+const userRoute = require('./routes/users')
+const postRoute = require('./routes/posts')
+const categoryRoute = require('./routes/categories')
+const multer = require('multer')
+const path = require('path')
+
+const app = express()
+dotenv.config()
+connectDB()
+app.use(express.json())
+app.use('/images', express.static(path.join(__dirname, '/images')))
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, 'images')
+  },
+  filename: (req, file, callback) => {
+    callback(null, req.body.name)
+  },
+})
+
+const upload = multer({ storage: storage })
+app.post('/api/upload', upload.single('file'), (req, res) => {
+  res.status(200).json('file has been uploaded')
+})
+
+app.use('/api/auth', authRoute)
+app.use('/api/users', userRoute)
+app.use('/api/posts', postRoute)
+app.use('/api/categories', categoryRoute)
+
+app.listen('5001', () => {
+  console.log('Backend is running')
+})
