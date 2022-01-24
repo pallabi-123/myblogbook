@@ -1,7 +1,7 @@
 # myblogbook
 TECH STACK :  MongoDB - DATABASE
-                        EXPRESS -  SERVER SIDE
-                        REACT  - FRONT-END
+                        EXPRESS.JS -  SERVER SIDE
+                        REACT.JS  - FRONT-END
                         Node.js - BACKEND
                           
 ADDITIONAL - Bootstrap |  | Postman
